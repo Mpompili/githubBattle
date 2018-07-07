@@ -1,13 +1,26 @@
 var React = require('react'); 
-
+var Navbar = require('./Navbar');
 class Popular extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedLanguage: 'All'
+        };
+        this.updateLanguage = this.updateLanguage.bind(this); 
+    }
+
+    updateLanguage(lang) {
+        this.setState({
+            selectedLanguage: lang
+        });
+    }
+
     render() {
-        var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
-        return (
-            <ul className="languages">
-                {languages.map(lang => <li>{lang}</li>)}
-            </ul>
+        return(
+            <Navbar selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} /> 
         );
+      
     }
 }
 
