@@ -7,19 +7,24 @@ class PlayerInput extends React.Component {
             username: ''
         };
         this.handleChange = this.handleChange.bind(this); 
+        this.handleSubmit = this.handleSubmit.bind(this); 
     }
 
     handleChange(e) {
-        var value = event.target.value; 
+        var value = e.target.value; 
         this.setState({
             username: value
         });
+    }
 
+    handleSubmit(e) {
+        e.preventDefault();
+        this.props.onSubmit(this.props.id, this.state.username);
     }
 
     render() {
         return (
-            <form className='battle-form'>
+            <form className='battle-form' onSubmit={this.handleSubmit}>
                 <label className='form-header' htmlFor='username'>
                     {this.props.label} 
                 </label>
@@ -30,17 +35,22 @@ class PlayerInput extends React.Component {
                     autoComplete='off' 
                     value={this.state.username} 
                     onChange={this.handleChange} />
+                <button 
+                    className="battle-btn" 
+                    type='submit' 
+                    disabled={!this.state.username}> 
+                        Submit
+                </button> 
             </form>  
-
-        )
+        );
     }
 }
 
 PlayerInput.propTypes = {
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
-    onSubmit: ProprTypes.func.isRequired
-}
+    onSubmit: PropTypes.func.isRequired
+};
 class Battle extends React.Component {
     constructor(props) {
         super(props); 
