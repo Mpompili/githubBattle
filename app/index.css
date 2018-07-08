@@ -104,3 +104,8 @@ li {
 .battle-btn:active {
     transform: translateY(1px); 
 }
+
+.row {
+    display: flex;
+    justify-content: space-around; 
+}
