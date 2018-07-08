@@ -148,3 +148,7 @@ li {
 .reset:hover {
     cursor: pointer; 
 }
+
+.player-preview {
+    text-align: center; 
+}

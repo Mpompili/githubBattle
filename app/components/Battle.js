@@ -1,29 +1,8 @@
 var React = require('react'); 
 var PropTypes = require('prop-types'); 
 var { Link } = require('react-router-dom');
+var PlayerPreview = require('./PlayerPreview'); 
 
-function PlayerPreview(props) {
-    return (
-        <div> 
-            <div className='player-preview'>
-            <img className='avatar'
-                src={props.avatar}
-                alt={'Avatar for ' + props.username}
-                /> 
-            <h2 className='username'>@{props.username}</h2>
-            </div> 
-            <button className='reset' onClick={() => props.onReset(props.id)}>
-                reset
-            </button> 
-        </div> 
-    );
-}
-
-PlayerPreview.propTypes = {
-    avatar: PropTypes.string.isRequired,
-    username: PropTypes.string.isRequired,
-    onReset: PropTypes.func.isRequired
-};
 class PlayerInput extends React.Component { 
     constructor(props) {
         super(props);
@@ -120,14 +99,23 @@ class Battle extends React.Component {
                 {!playerOneName && 
                     <PlayerInput id='playerOne' label="Player One" onSubmit={this.handleSubmit} />}
                 {playerOneImage !== null &&
-                    <PlayerPreview avatar={playerOneImage} username={playerOneName} onReset={this.handleReset} id='playerOne' />}
+                    <PlayerPreview avatar={playerOneImage} username={playerOneName}>
+                    <button className='reset' onClick={() => this.handleReset('playerOne')}>
+                        reset
+                    </button> 
+                    </PlayerPreview>}
+                    
 
                 {/* Player Two */}
                 {!playerTwoName &&
                     <PlayerInput id='playerTwo' label="Player Two" onSubmit={this.handleSubmit} />}
                 {playerTwoImage !== null &&
-                    <PlayerPreview avatar={playerTwoImage} username={playerTwoName} onReset={this.handleReset} id='playerTwo' />}
-                
+                    <PlayerPreview avatar={playerTwoImage} username={playerTwoName}>
+                        <button className='reset' onClick={() => this.handleReset('playerTwo')}>
+                            reset
+                        </button> 
+                    </PlayerPreview>}
+                </div>
                 {playerOneImage && playerTwoImage && 
                     <Link
                         className='battle-btn'
@@ -136,7 +124,7 @@ class Battle extends React.Component {
                             search: `?playerOneName=${playerOneName}&playerTwoName=${playerTwoName}`
                         }}
                     >Battle</Link>}
-                </div> 
+                
             </div> 
         );
     }
