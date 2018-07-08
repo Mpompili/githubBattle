@@ -10,6 +10,11 @@ body {
     sans-serif;
 }
 
+a {
+    text-decoration: none; 
+    color: #d0021b;
+}
+
 ul {
     padding: 0px; 
 }
@@ -32,4 +37,41 @@ li {
     margin: 10px;
     font-weight: bold; 
     cursor: pointer; 
+}
+
+.popList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.popItem {
+    margin: 20px;
+    text-align: center;
+}
+
+.spaceListItems {
+    margin-bottom: 7px; 
+}
+
+.avatar {
+    width: 150px;
+    border-radius: 50%; 
+}
+
+.repoRank {
+    font-size: 20px;
+    margin: 10px; 
+}
+
+.nav {
+    display: flex; 
+}
+
+.nav li {
+    margin-right: 15px; 
+}
+
+.active-nav {
+    font-weight: bold;
 }

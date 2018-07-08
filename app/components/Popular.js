@@ -1,24 +1,66 @@
 var React = require('react'); 
-var Navbar = require('./Navbar');
+var PopIndex = require('./PopIndex');
+var api = require('../utils/api'); 
+var PropTypes = require('prop-types'); 
+
+function RepoGrid(props) {
+    return (
+        <ul className="popList">
+            {props.repos.map((repos, idx) => (
+                <li key={repos.name} className="popItem">
+                    <div className="repoRank"># {idx}</div> 
+                    <ul className="spaceListItems">
+                        <li>
+                            <img className="avatar" src={repos.owner.avatar_url} alt={'Avatar for ' + repos.owner.login} />
+                        </li>
+                        <li> <a href={repos.html_url}>{repos.name}</a></li>
+                        <li>@{repos.owner.login}</li>
+                        <li>{repos.stargazers_count} stars</li> 
+                    </ul>
+                </li>
+            ))} 
+        </ul>
+    );
+}
+
+RepoGrid.propTypes = {
+    repos: PropTypes.array.isRequired
+};
 class Popular extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            selectedLanguage: 'All'
+            selectedLanguage: 'All',
+            repos: null
         };
         this.updateLanguage = this.updateLanguage.bind(this); 
     }
 
+    componentDidMount(){
+        this.updateLanguage(this.state.selectedLanguage); 
+    }
+
     updateLanguage(lang) {
         this.setState({
-            selectedLanguage: lang
+            selectedLanguage: lang,
+            repos: null 
         });
+
+        api.fetchPopularRepos(lang)
+            .then(repos => (
+                this.setState({repos: repos})
+            ));
     }
 
     render() {
         return(
-            <Navbar selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} /> 
+            <div>
+                <PopIndex selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} /> 
+                {!this.state.repos
+                    ? <p> Loading.. </p> : <RepoGrid repos={this.state.repos} />
+                }
+            </div>
         );
       
     }

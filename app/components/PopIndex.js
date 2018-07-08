@@ -1,7 +1,7 @@
 var React = require('react'); 
 var PropTypes = require('prop-types'); 
 
-function Navbar(props) {
+function PopIndex(props) {
     var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
 
     return (
@@ -17,9 +17,9 @@ function Navbar(props) {
     );
 }
 
-Navbar.propTypes = {
+PopIndex.propTypes = {
     selectedLanguage: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired
 };
 
-module.exports = Navbar; 
+module.exports = PopIndex; 
