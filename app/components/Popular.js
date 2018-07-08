@@ -2,6 +2,7 @@ var React = require('react');
 var PopIndex = require('./PopIndex');
 var api = require('../utils/api'); 
 var PropTypes = require('prop-types'); 
+var Loading = require('./Loading'); 
 
 function RepoGrid(props) {
     return (
@@ -58,7 +59,7 @@ class Popular extends React.Component {
             <div>
                 <PopIndex selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} /> 
                 {!this.state.repos
-                    ? <p> Loading.. </p> : <RepoGrid repos={this.state.repos} />
+                    ? <Loading /> : <RepoGrid repos={this.state.repos} />
                 }
             </div>
         );
