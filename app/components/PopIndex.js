@@ -1,7 +1,7 @@
-const React = require('react'); 
-const PropTypes = require('prop-types'); 
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function PopIndex({ selectedLanguage, onSelect }) {
+export default function PopIndex({ selectedLanguage, onSelect }) {
     const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
 
     return (
@@ -21,5 +21,3 @@ PopIndex.propTypes = {
     selectedLanguage: PropTypes.string.isRequired,
     onSelect: PropTypes.func.isRequired
 };
-
-module.exports = PopIndex; 

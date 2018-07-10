@@ -1,8 +1,8 @@
-const React = require('react'); 
-const PopIndex = require('./PopIndex');
-const api = require('../utils/api'); 
-const PropTypes = require('prop-types'); 
-const Loading = require('./Loading'); 
+import React from 'react';
+import PropTypes from 'prop-types';
+import PopIndex from './PopIndex'; 
+import { fetchPopularRepos } from '../utils/api'; 
+import Loading from './Loading'; 
 
 function RepoGrid({ repos }) {
      return (
@@ -22,23 +22,6 @@ function RepoGrid({ repos }) {
             ))} 
         </ul>
     );
-    // return (
-    //     <ul className="popList">
-    //         {props.repos.map((repos, idx) => (
-    //             <li key={repos.name} className="popItem">
-    //                 <div className="repoRank"># {idx}</div> 
-    //                 <ul className="spaceListItems">
-    //                     <li>
-    //                         <img className="avatar" src={repos.owner.avatar_url} alt={'Avatar for ' + repos.owner.login} />
-    //                     </li>
-    //                     <li> <a href={repos.html_url}>{repos.name}</a></li>
-    //                     <li>@{repos.owner.login}</li>
-    //                     <li>{repos.stargazers_count} stars</li> 
-    //                 </ul>
-    //             </li>
-    //         ))} 
-    //     </ul>
-    // );
 }
 
 RepoGrid.propTypes = {
@@ -65,7 +48,7 @@ class Popular extends React.Component {
             repos: null 
         });
 
-        api.fetchPopularRepos(lang)
+        fetchPopularRepos(lang)
             .then(repos => this.setState(() => ({ repos })));
     }
 
@@ -83,4 +66,4 @@ class Popular extends React.Component {
     }
 }
 
-module.exports = Popular;  
+export default Popular;   
