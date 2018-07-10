@@ -1,15 +1,15 @@
-var React = require('react'); 
-var PropTypes = require('prop-types'); 
+const React = require('react'); 
+const PropTypes = require('prop-types'); 
 
-function PopIndex(props) {
-    var languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
+function PopIndex({ selectedLanguage, onSelect }) {
+    const languages = ['All', 'JavaScript', 'Ruby', 'Java', 'CSS', 'Python'];
 
     return (
         <ul className="languages">
             {languages.map(lang => (
                 <li 
-                    style={lang === props.selectedLanguage ? {color: '#d0021b'} : null }
-                    onClick={() => props.onSelect(lang)} 
+                    style={lang === selectedLanguage ? {color: '#d0021b'} : null }
+                    onClick={() => onSelect(lang)} 
                     key={lang}>{lang}
                 </li>
             ))}

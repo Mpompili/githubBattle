@@ -1,27 +1,44 @@
-var React = require('react'); 
-var PopIndex = require('./PopIndex');
-var api = require('../utils/api'); 
-var PropTypes = require('prop-types'); 
-var Loading = require('./Loading'); 
+const React = require('react'); 
+const PopIndex = require('./PopIndex');
+const api = require('../utils/api'); 
+const PropTypes = require('prop-types'); 
+const Loading = require('./Loading'); 
 
-function RepoGrid(props) {
-    return (
+function RepoGrid({ repos }) {
+     return (
         <ul className="popList">
-            {props.repos.map((repos, idx) => (
-                <li key={repos.name} className="popItem">
+            {repos.map(({ name, owner, html_url, stargazers_count }, idx) => (
+                <li key={name} className="popItem">
                     <div className="repoRank"># {idx}</div> 
                     <ul className="spaceListItems">
                         <li>
-                            <img className="avatar" src={repos.owner.avatar_url} alt={'Avatar for ' + repos.owner.login} />
+                            <img className="avatar" src={owner.avatar_url} alt={'Avatar for ' + owner.login} />
                         </li>
-                        <li> <a href={repos.html_url}>{repos.name}</a></li>
-                        <li>@{repos.owner.login}</li>
-                        <li>{repos.stargazers_count} stars</li> 
+                        <li> <a href={html_url}>{name}</a></li>
+                        <li>@{owner.login}</li>
+                        <li>{stargazers_count} stars</li> 
                     </ul>
                 </li>
             ))} 
         </ul>
     );
+    // return (
+    //     <ul className="popList">
+    //         {props.repos.map((repos, idx) => (
+    //             <li key={repos.name} className="popItem">
+    //                 <div className="repoRank"># {idx}</div> 
+    //                 <ul className="spaceListItems">
+    //                     <li>
+    //                         <img className="avatar" src={repos.owner.avatar_url} alt={'Avatar for ' + repos.owner.login} />
+    //                     </li>
+    //                     <li> <a href={repos.html_url}>{repos.name}</a></li>
+    //                     <li>@{repos.owner.login}</li>
+    //                     <li>{repos.stargazers_count} stars</li> 
+    //                 </ul>
+    //             </li>
+    //         ))} 
+    //     </ul>
+    // );
 }
 
 RepoGrid.propTypes = {
@@ -49,17 +66,16 @@ class Popular extends React.Component {
         });
 
         api.fetchPopularRepos(lang)
-            .then(repos => (
-                this.setState({repos: repos})
-            ));
+            .then(repos => this.setState(() => ({ repos })));
     }
 
     render() {
+        const { selectedLanguage, repos } = this.state; 
         return(
             <div>
-                <PopIndex selectedLanguage={this.state.selectedLanguage} onSelect={this.updateLanguage} /> 
-                {!this.state.repos
-                    ? <Loading /> : <RepoGrid repos={this.state.repos} />
+                <PopIndex selectedLanguage={selectedLanguage} onSelect={this.updateLanguage} /> 
+                {!repos
+                    ? <Loading /> : <RepoGrid repos={repos} />
                 }
             </div>
         );

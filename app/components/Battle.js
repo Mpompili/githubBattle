@@ -81,10 +81,6 @@ class Battle extends React.Component {
     render() {
         const { match } = this.props;
         const { playerOneName, playerTwoName, playerOneImage, playerTwoImage} = this.state;  
-        // var playerOneName = this.state.playerOneName; 
-        // var playerTwoName = this.state.playerTwoName; 
-        // var playerOneImage = this.state.playerOneImage; 
-        // var playerTwoImage = this.state.playerTwoImage; 
 
         return (
             <div>
@@ -110,6 +106,8 @@ class Battle extends React.Component {
                         </button> 
                     </PlayerPreview>}
                 </div>
+                
+                {/* When both appear */}
                 {playerOneImage && playerTwoImage && 
                     <Link
                         className='battle-btn'
